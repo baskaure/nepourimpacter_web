@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-gray-900 flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen bg-[#121212] flex items-center justify-center overflow-hidden">
       {/* Background Video with Overlay */}
       <div className="absolute inset-0">
         <video
@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
             className="w-full h-full object-cover opacity-40"
           />
         </video>
-        <div className="absolute inset-0 bg-gray-900/70"></div>
+        <div className="absolute inset-0 bg-[#121212]/70"></div>
       </div>
 
       {/* Content */}

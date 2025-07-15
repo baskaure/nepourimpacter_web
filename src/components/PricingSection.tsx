@@ -125,7 +125,7 @@ const PricingSection: React.FC = () => {
   };
 
   return (
-    <section id="pricing" className="py-20 bg-gray-900">
+    <section id="pricing" className="py-20 bg-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Date Badge */}
         <div className="text-center mb-8">
@@ -154,7 +154,7 @@ const PricingSection: React.FC = () => {
           {pricingTiers.map((tier) => (
             <div
               key={tier.id}
-              className={`relative bg-gray-800 rounded-lg p-6 ${
+              className={`relative bg-[#212121] rounded-lg p-6 ${
                 tier.popular 
                   ? 'ring-2 ring-yellow-400 transform scale-105' 
                   : 'hover:bg-gray-750'
@@ -191,7 +191,7 @@ const PricingSection: React.FC = () => {
                 className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
                   tier.popular
                     ? 'bg-yellow-400 hover:bg-yellow-500 text-black'
-                    : 'bg-gray-700 hover:bg-gray-600 text-white'
+                    : 'bg-[#2c2c2c] hover:bg-[#3d3d3d] text-white'
                 } ${
                   loading === tier.id
                     ? 'opacity-50 cursor-not-allowed'

@@ -4,7 +4,7 @@ import npi from './media/NPI.mp4';
 
 const EventSection: React.FC = () => {
   return (
-    <section id="event-section" className="py-20 bg-black">
+    <section id="event-section" className="py-20 bg-[#121212]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Date Badge */}
         <div className="text-center mb-12">

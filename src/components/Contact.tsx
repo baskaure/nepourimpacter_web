@@ -69,7 +69,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-900 relative overflow-hidden">
+    <section className="py-20 bg-[#1a1a1a] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
           Contactez-nous

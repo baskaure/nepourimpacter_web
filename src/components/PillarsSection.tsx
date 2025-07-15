@@ -31,7 +31,7 @@ const PillarsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-black">
+    <section className="py-20 bg-[#121212]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16">
           Nos 5 Piliers Essentiels
@@ -43,7 +43,7 @@ const PillarsSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="bg-gray-900 rounded-lg p-8 hover:bg-gray-800 transition-all duration-200 transform hover:-translate-y-1"
+                className="bg-[#212121] rounded-lg p-8 hover:bg-gray-800 transition-all duration-200 transform hover:-translate-y-1"
               >
                 <div className="bg-gray-800 rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6">
                   <Icon className="h-8 w-8 text-yellow-400" />
