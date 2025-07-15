@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { Send, Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    subject: '',
+    firstName: '',
+    phone: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -27,7 +27,7 @@ const Contact: React.FC = () => {
     
     try {
       // Validation côté client
-      if (!formData.name.trim() || !formData.email.trim() || !formData.subject || !formData.message.trim()) {
+      if (!formData.name.trim() || !formData.firstName.trim() || !formData.phone.trim() || !formData.message.trim()) {
         throw new Error('Tous les champs sont requis');
       }
 
@@ -38,7 +38,12 @@ const Contact: React.FC = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.name}`,
+          email: 'contact@nepourimpacter.com', // Email par défaut
+          subject: 'Nouveau message de contact',
+          message: `Nom: ${formData.name}\nPrénom: ${formData.firstName}\nTéléphone: ${formData.phone}\n\nMessage:\n${formData.message}`
+        }),
       });
 
       const result = await response.json();
@@ -49,9 +54,9 @@ const Contact: React.FC = () => {
 
       setIsSubmitting(false);
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', firstName: '', phone: '', message: '' });
       
-      // Reset success message after 3 seconds
+      // Reset success message after 5 seconds
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
@@ -64,195 +69,144 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gray-900 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Contactez-nous
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Une question ? Besoin d'informations supplémentaires ? Notre équipe est là pour vous aider
-          </p>
-        </div>
+        <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
+          Contactez-nous
+        </h2>
+        
+        <p className="text-gray-400 text-center text-lg mb-16 max-w-2xl mx-auto">
+          Une expérience unique vous attend. Contactez-nous pour prendre une place.
+        </p>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Side - Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Informations de contact
-              </h3>
+              <h3 className="text-xl font-bold text-white mb-6">Informations Pratiques</h3>
               
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Email</h4>
-                    <p className="text-gray-600">contact@summit-entrepreneur.com</p>
-                  </div>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-white mb-1">Adresse</h4>
+                  <p className="text-gray-400">9 rue Neuve,</p>
+                  <p className="text-gray-400">69002 Lyon, France</p>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <Phone className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Téléphone</h4>
-                    <p className="text-gray-600">+33 1 23 45 67 89</p>
-                  </div>
+                <div>
+                  <h4 className="font-semibold text-white mb-1">Horaires</h4>
+                  <p className="text-gray-400">Lundi - Vendredi: 10h00 - 20h00</p>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <MapPin className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Adresse</h4>
-                    <p className="text-gray-600">
-                      Centre de Congrès Paris<br />
-                      123 Avenue des Entrepreneurs<br />
-                      75001 Paris, France
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="font-semibold text-white mb-1">WhatsApp</h4>
+                  <p className="text-gray-400">06 40 46 54 31</p>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <Clock className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Horaires</h4>
-                    <p className="text-gray-600">
-                      Lundi - Vendredi: 9h - 18h<br />
-                      Samedi: 10h - 16h
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="font-semibold text-white mb-1">Email</h4>
+                  <p className="text-gray-400">contact@florian.restaurant</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-gray-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Envoyez-nous un message
-            </h3>
+          {/* Right Side - Contact Form */}
+          <div className="relative">
+            {/* Background Image */}
+            <div className="absolute inset-0 rounded-lg overflow-hidden">
+              <img 
+                src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop" 
+                alt="Contact background" 
+                className="w-full h-full object-cover opacity-20"
+              />
+            </div>
 
-            {isSubmitted && (
-              <div className="mb-6 p-4 bg-green-100 border border-green-200 rounded-lg">
-                <p className="text-green-800 font-medium flex items-center">
-                  <Send className="h-5 w-5 mr-2" />
-                  ✓ Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.
-                </p>
-              </div>
-            )}
+            {/* Form */}
+            <div className="relative bg-white/10 backdrop-blur-sm rounded-lg p-8">
+              {isSubmitted && (
+                <div className="mb-6 p-4 bg-green-500/20 border border-green-500 rounded-lg">
+                  <p className="text-green-300 font-medium flex items-center">
+                    <Send className="h-5 w-5 mr-2" />
+                    ✓ Message envoyé avec succès !
+                  </p>
+                </div>
+              )}
 
-            {error && (
-              <div className="mb-6 p-4 bg-red-100 border border-red-200 rounded-lg">
-                <p className="text-red-800 font-medium">
-                  ❌ {error}
-                </p>
-              </div>
-            )}
+              {error && (
+                <div className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg">
+                  <p className="text-red-300 font-medium">❌ {error}</p>
+                </div>
+              )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Nom complet *
-                  </label>
                   <input
                     type="text"
-                    id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                    placeholder="Votre nom"
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors"
+                    placeholder="Nom"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
-                  </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                    placeholder="votre.email@example.com"
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors"
+                    placeholder="Prénom"
                   />
                 </div>
-              </div>
 
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                  Sujet *
-                </label>
-                <select
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                <div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors"
+                    placeholder="Téléphone"
+                  />
+                </div>
+
+                <div>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={4}
+                    className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-300 focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-colors resize-none"
+                    placeholder="Sexe"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 ${
+                    isSubmitting
+                      ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
+                      : 'bg-black hover:bg-gray-800 text-white transform hover:scale-105'
+                  }`}
                 >
-                  <option value="">Choisissez un sujet</option>
-                  <option value="ticketing">Questions sur les tickets</option>
-                  <option value="program">Programme de l'événement</option>
-                  <option value="payment">Problème de paiement</option>
-                  <option value="sponsorship">Partenariat / Sponsoring</option>
-                  <option value="technical">Support technique</option>
-                  <option value="refund">Demande de remboursement</option>
-                  <option value="other">Autre</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
-                  placeholder="Votre message..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center space-x-2 ${
-                  isSubmitting
-                    ? 'bg-blue-400 text-white cursor-wait opacity-75'
-                    : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:scale-105'
-                }`}
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    <span>Envoi en cours...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="h-5 w-5" />
-                    <span>Envoyer le message</span>
-                  </>
-                )}
-              </button>
-            </form>
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                      <span>Envoi...</span>
+                    </div>
+                  ) : (
+                    'Envoyer'
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

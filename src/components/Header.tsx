@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Menu, X, Calendar, Users, MessageSquare, Play, CreditCard, LogIn, LogOut } from 'lucide-react';
-import { User } from '@supabase/supabase-js';
+import { Trophy, Menu, X, User, LogOut } from 'lucide-react';
+import { User as SupabaseUser } from '@supabase/supabase-js';
+import logo from './media/logo.png';
 
 interface HeaderProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
-  user: User | null;
+  user: SupabaseUser | null;
   onSignOut: () => void;
 }
 
@@ -13,65 +14,58 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onSectionChange, user, o
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Accueil', id: 'home', icon: Calendar },
-    { name: 'Tickets', id: 'tickets', icon: Users },
-    { name: 'Contact', id: 'contact', icon: MessageSquare },
-    { name: 'Live', id: 'live', icon: Play },
+    { name: 'ACCUEIL', id: 'home' },
+    { name: 'TICKET', id: 'tickets' },
+    { name: 'CONNEXION', id: 'auth' },
   ];
 
-  const userNavigation = user ? [
-    { name: 'Abonnement', id: 'subscription', icon: CreditCard },
-  ] : [
-    { name: 'Connexion', id: 'auth', icon: LogIn },
-  ];
-
-  const allNavigation = [...navigation, ...userNavigation];
+  const scrollToSection = (sectionId: string) => {
+    if (sectionId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (sectionId === 'tickets') {
+      const element = document.getElementById('pricing');
+      element?.scrollIntoView({ behavior: 'smooth' });
+    } else if (sectionId === 'auth' && !user) {
+      onSectionChange('auth');
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/60 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          <div className="flex items-center">
-            <Calendar className="h-8 w-8 text-blue-600 mr-3" />
-            <h1 className="text-2xl font-bold text-gray-900">
-              Summit Entrepreneur 2025
-            </h1>
+          {/* Logo */}
+          <div className="flex items-center cursor-pointer" onClick={() => scrollToSection('home')}>
+            <img src={logo} alt="Logo" className="h-8 w-7" />
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            {allNavigation.map((item) => {
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onSectionChange(item.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-                    activeSection === item.id
-                      ? 'bg-blue-100 text-blue-700 shadow-sm'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <Icon className="h-5 w-5" />
-                  <span className="font-medium">{item.name}</span>
-                </button>
-              );
-            })}
+            {navigation.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-white hover:text-yellow-400 transition-colors duration-200 font-medium tracking-wide"
+              >
+                {item.name}
+              </button>
+            ))}
             
             {user && (
               <button
                 onClick={onSignOut}
-                className="flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
+                className="flex items-center space-x-2 text-white hover:text-yellow-400 transition-colors duration-200 font-medium"
               >
-                <LogOut className="h-5 w-5" />
-                <span className="font-medium">Déconnexion</span>
+                <LogOut className="h-4 w-4" />
+                <span>DÉCONNEXION</span>
               </button>
             )}
           </nav>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+            className="md:hidden p-2 text-white hover:text-yellow-400"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -80,28 +74,17 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onSectionChange, user, o
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+          <div className="md:hidden py-4 border-t border-gray-700">
             <nav className="space-y-2">
-              {allNavigation.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      onSectionChange(item.id);
-                      setIsMenuOpen(false);
-                    }}
-                    className={`w-full flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-200 ${
-                      activeSection === item.id
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'text-gray-700 hover:bg-gray-100'
-                    }`}
-                  >
-                    <Icon className="h-5 w-5" />
-                    <span className="font-medium">{item.name}</span>
-                  </button>
-                );
-              })}
+              {navigation.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="block w-full text-left px-4 py-2 text-white hover:text-yellow-400 transition-colors duration-200 font-medium"
+                >
+                  {item.name}
+                </button>
+              ))}
               
               {user && (
                 <button
@@ -109,10 +92,9 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onSectionChange, user, o
                     onSignOut();
                     setIsMenuOpen(false);
                   }}
-                  className="w-full flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
+                  className="block w-full text-left px-4 py-2 text-white hover:text-yellow-400 transition-colors duration-200 font-medium"
                 >
-                  <LogOut className="h-5 w-5" />
-                  <span className="font-medium">Déconnexion</span>
+                  DÉCONNEXION
                 </button>
               )}
             </nav>
