@@ -1,6 +1,7 @@
 import React from 'react';
 import VideoPlayer from './VideoPlayer';
 import npi from './media/NPI.mp4';
+import poster from './media/poster.jpg';
 
 const EventSection: React.FC = () => {
   return (
@@ -38,7 +39,7 @@ const EventSection: React.FC = () => {
           <div className="relative">
             <VideoPlayer
                 src={npi}
-              poster="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop"
+              poster={poster}
               className="aspect-video"
             />
           </div>

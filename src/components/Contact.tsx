@@ -112,15 +112,6 @@ const Contact: React.FC = () => {
 
           {/* Right Side - Contact Form */}
           <div className="relative">
-            {/* Background Image */}
-            <div className="absolute inset-0 rounded-lg overflow-hidden">
-              <img 
-                src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop" 
-                alt="Contact background" 
-                className="w-full h-full object-cover opacity-20"
-              />
-            </div>
-
             {/* Form */}
             <div className="relative bg-white/10 backdrop-blur-sm rounded-lg p-8">
               {isSubmitted && (

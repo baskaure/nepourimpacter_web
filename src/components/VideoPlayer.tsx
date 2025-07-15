@@ -173,7 +173,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster, className = '' }
             className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-6 transition-all duration-200 transform hover:scale-110"
             aria-label="Lire la vidéo"
           >
-            <Play className="h-12 w-12 text-white ml-1" />
+            <Play className="h-6 w-6 text-white ml-1" />
           </button>
         </div>
       )}

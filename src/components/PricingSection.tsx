@@ -33,19 +33,6 @@ const PricingSection: React.FC = () => {
       priceId: 'price_student'
     },
     {
-      id: 'standard',
-      name: 'STANDARD',
-      price: 129,
-      period: 'mois',
-      features: [
-        'Tout l\'abonnement Premium',
-        '4 sessions avec coach',
-        'Programme nutritionnel',
-        'Accès prioritaire aux équipements'
-      ],
-      priceId: 'price_standard'
-    },
-    {
       id: 'premium',
       name: 'PREMIUM',
       price: 79,
@@ -60,8 +47,8 @@ const PricingSection: React.FC = () => {
       priceId: 'price_1RihCFBAcftivNNIHC1V6qtZ'
     },
     {
-      id: 'live',
-      name: 'LIVE',
+      id: 'standard',
+      name: 'STANDARD',
       price: 129,
       period: 'mois',
       features: [
@@ -70,7 +57,7 @@ const PricingSection: React.FC = () => {
         'Programme nutritionnel',
         'Accès prioritaire aux équipements'
       ],
-      priceId: 'price_live'
+      priceId: 'price_standard'
     }
   ];
 
@@ -85,7 +72,6 @@ const PricingSection: React.FC = () => {
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      
       if (!session) {
         throw new Error('Session expirée, veuillez vous reconnecter');
       }
@@ -110,7 +96,6 @@ const PricingSection: React.FC = () => {
       }
 
       const { url } = await response.json();
-      
       if (url) {
         window.location.href = url;
       } else {
@@ -150,7 +135,7 @@ const PricingSection: React.FC = () => {
         )}
 
         {/* Pricing Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {pricingTiers.map((tier) => (
             <div
               key={tier.id}
