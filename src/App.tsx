@@ -10,19 +10,20 @@ import Footer from './components/Footer';
 import AuthPage from './components/auth/AuthPage';
 import SuccessPage from './components/SuccessPage';
 import CancelPage from './components/CancelPage';
-import TicketPage from './components/TicketPage'; // Ajout du composant ticket
 import { useAuth } from './hooks/useAuth';
 
 function App() {
   const { user, loading: authLoading, signOut } = useAuth();
   const [activeSection, setActiveSection] = useState('home');
 
+  // Check URL parameters for success/cancel redirects only once on mount
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const sectionFromUrl = urlParams.get('section');
     
-    if (sectionFromUrl === 'success' || sectionFromUrl === 'cancel' || sectionFromUrl === 'ticket') {
+    if (sectionFromUrl === 'success' || sectionFromUrl === 'cancel') {
       setActiveSection(sectionFromUrl);
+      // Clean URL parameters immediately
       window.history.replaceState({}, '', window.location.pathname);
     }
   }, []);
@@ -36,6 +37,7 @@ function App() {
     setActiveSection('home');
   };
 
+  // Show loading screen while checking authentication
   if (authLoading) {
     return (
       <div className="min-h-screen bg-[#121212] flex items-center justify-center">
@@ -47,15 +49,13 @@ function App() {
     );
   }
 
-  if (!user && (activeSection === 'auth' || activeSection === 'success' || activeSection === 'cancel' || activeSection === 'ticket')) {
+  // Show auth page if user is not logged in and trying to access protected sections
+  if (!user && (activeSection === 'auth' || activeSection === 'success' || activeSection === 'cancel')) {
     if (activeSection === 'success') {
       return <SuccessPage onBackToHome={() => setActiveSection('home')} />;
     }
     if (activeSection === 'cancel') {
       return <CancelPage onBackToHome={() => setActiveSection('home')} />;
-    }
-    if (activeSection === 'ticket') {
-      return <AuthPage onSuccess={() => setActiveSection('ticket')} />;
     }
     return <AuthPage onSuccess={() => setActiveSection('home')} />;
   }
@@ -78,8 +78,6 @@ function App() {
         return <SuccessPage onBackToHome={() => setActiveSection('home')} />;
       case 'cancel':
         return <CancelPage onBackToHome={() => setActiveSection('home')} />;
-      case 'ticket':
-        return <TicketPage onBackToHome={() => setActiveSection('home')} />; // Rendu du ticket
       default:
         return (
           <>
