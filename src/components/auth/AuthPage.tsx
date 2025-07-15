@@ -10,7 +10,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center py-12 px-4">
+    <section className="min-h-screen bg-gradient-to-br bg-[#121212] flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-md">
         {isLogin ? (
           <LoginForm

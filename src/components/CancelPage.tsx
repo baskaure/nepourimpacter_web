@@ -7,7 +7,7 @@ interface CancelPageProps {
 
 const CancelPage: React.FC<CancelPageProps> = ({ onBackToHome }) => {
   return (
-    <section className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center py-12 px-4">
+    <section className="min-h-screen bg-gradient-to-br bg-[#121212] flex items-center justify-center py-12 px-4">
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8 text-center">
         <div className="mb-6">
           <div className="bg-red-100 p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
