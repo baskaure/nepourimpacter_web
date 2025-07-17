@@ -19,13 +19,17 @@ function App() {
   // Check URL parameters for success/cancel redirects only once on mount
 useEffect(() => {
   const urlParams = new URLSearchParams(window.location.search);
+  const confirmed = urlParams.get('confirmed');
   const sectionFromUrl = urlParams.get('section');
 
-  if (sectionFromUrl === 'auth') {
-    setActiveSection('auth');
+  if (confirmed === 'true') {
+    setActiveSection('home');
+    // Optionnel : stocker un état pour afficher un message de confirmation dans ta home si tu en as une
   } else if (sectionFromUrl === 'success' || sectionFromUrl === 'cancel') {
     setActiveSection(sectionFromUrl);
     window.history.replaceState({}, '', window.location.pathname);
+  } else if (sectionFromUrl === 'auth') {
+    setActiveSection('auth');
   } else {
     setActiveSection('home');
   }
