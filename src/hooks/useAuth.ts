@@ -37,7 +37,7 @@ const signUp = async (email: string, password: string) => {
     email,
     password,
     options: {
-      emailRedirectTo: `${window.location.origin}/?section=auth&confirmed=true`,
+      emailRedirectTo: `${window.location.origin}/?confirmed=true`,
     },
   });
   return { data, error };
