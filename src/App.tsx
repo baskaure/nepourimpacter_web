@@ -17,16 +17,20 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   // Check URL parameters for success/cancel redirects only once on mount
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sectionFromUrl = urlParams.get('section');
-    
-    if (sectionFromUrl === 'success' || sectionFromUrl === 'cancel') {
-      setActiveSection(sectionFromUrl);
-      // Clean URL parameters immediately
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-  }, []);
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const sectionFromUrl = urlParams.get('section');
+
+  if (sectionFromUrl === 'auth') {
+    setActiveSection('auth');
+  } else if (sectionFromUrl === 'success' || sectionFromUrl === 'cancel') {
+    setActiveSection(sectionFromUrl);
+    window.history.replaceState({}, '', window.location.pathname);
+  } else {
+    setActiveSection('home');
+  }
+}, []);
+
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
