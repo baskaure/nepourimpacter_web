@@ -37,7 +37,7 @@ export function useAuth() {
       email,
       password,
       options: {
-        emailRedirectTo: undefined, // Disable email confirmation
+        emailRedirectTo: `${window.location.origin}/auth?confirmed=true`,
       },
     });
     return { data, error };

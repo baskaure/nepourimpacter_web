@@ -5,9 +5,10 @@ import { useAuth } from '../../hooks/useAuth';
 interface SignupFormProps {
   onSuccess?: () => void;
   onSwitchToLogin?: () => void;
+  onEmailSent?: () => void;
 }
 
-const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLogin }) => {
+const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLogin, onEmailSent }) => {
   const { signUp } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,6 +17,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLogin }) =
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +42,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLogin }) =
       if (signUpError) {
         setError(signUpError.message);
       } else {
-        onSuccess?.();
+        setEmailSent(true);
+        setEmailSent(true);
+        onEmailSent?.();
       }
     } catch (err) {
       setError('Une erreur inattendue s\'est produite');
@@ -48,6 +52,64 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLogin }) =
       setLoading(false);
     }
   };
+
+  if (emailSent) {
+    return (
+      <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
+        <div className="text-center mb-8">
+          <div className="bg-blue-100 p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+            <Mail className="h-10 w-10 text-blue-600" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Vérifiez votre email</h2>
+          <p className="text-gray-600">
+            Un email de confirmation a été envoyé à <strong>{email}</strong>
+          </p>
+        </div>
+
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <p className="text-blue-800 text-sm">
+            Cliquez sur le lien dans l'email pour activer votre compte, puis revenez vous connecter.
+          </p>
+        </div>
+
+        <button
+          onClick={onSwitchToLogin}
+          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200"
+        >
+          Aller à la page de connexion
+        </button>
+      </div>
+    );
+  }
+
+  if (emailSent) {
+    return (
+      <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
+        <div className="text-center mb-8">
+          <div className="bg-blue-100 p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+            <Mail className="h-10 w-10 text-blue-600" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Vérifiez votre email</h2>
+          <p className="text-gray-600">
+            Un email de confirmation a été envoyé à <strong>{email}</strong>
+          </p>
+        </div>
+
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <p className="text-blue-800 text-sm">
+            Cliquez sur le lien dans l'email pour activer votre compte, puis revenez vous connecter.
+          </p>
+        </div>
+
+        <button
+          onClick={onSwitchToLogin}
+          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200"
+        >
+          Aller à la page de connexion
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">

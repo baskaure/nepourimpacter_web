@@ -5,9 +5,10 @@ import { useAuth } from '../../hooks/useAuth';
 interface LoginFormProps {
   onSuccess?: () => void;
   onSwitchToSignup?: () => void;
+  showEmailConfirmationMessage?: boolean;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignup }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignup, showEmailConfirmationMessage }) => {
   const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,9 +43,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignup }) =>
         <p className="text-gray-600 mt-2">Accédez à votre compte</p>
       </div>
 
+      {showEmailConfirmationMessage && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <p className="text-green-800 text-sm">
+            ✅ Votre compte a été confirmé ! Vous pouvez maintenant vous connecter.
+          </p>
+        </div>
+      )}
+
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-800 text-sm">{error}</p>
+          <p className="text-red-800 text-sm">
+            {error.includes('Invalid login credentials') 
+              ? 'Email ou mot de passe incorrect. Avez-vous confirmé votre email ?' 
+              : error}
+          </p>
         </div>
       )}
 
