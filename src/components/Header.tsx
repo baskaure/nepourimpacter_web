@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onSectionChange, user, o
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center cursor-pointer" onClick={() => scrollToSection('home')}>
+          <div className="flex items-center cursor-pointer" onClick={() => onSectionChange('home')}>
             <img src={logo} alt="Logo" className="h-8 w-7" />
           </div>
 
@@ -45,7 +45,13 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onSectionChange, user, o
             {navigation.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => {
+                  if (item.id === 'tickets' || item.id === 'auth') {
+                    onSectionChange(item.id);
+                  } else {
+                    onSectionChange(item.id);
+                  }
+                }}
                 className="text-white hover:text-yellow-400 transition-colors duration-200 font-medium tracking-wide"
               >
                 {item.name}
@@ -79,7 +85,15 @@ const Header: React.FC<HeaderProps> = ({ activeSection, onSectionChange, user, o
               {navigation.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => {
+                    if (item.id === 'tickets' || item.id === 'auth') {
+                      onSectionChange(item.id);
+                      setIsMenuOpen(false);
+                    } else {
+                      onSectionChange(item.id);
+                      setIsMenuOpen(false);
+                    }
+                  }}
                   className="block w-full text-left px-4 py-2 text-white hover:text-yellow-400 transition-colors duration-200 font-medium"
                 >
                   {item.name}

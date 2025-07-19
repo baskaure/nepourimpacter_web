@@ -43,9 +43,9 @@ const PillarsSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="bg-[#212121] rounded-lg p-8 hover:bg-gray-800 transition-all duration-200 transform hover:-translate-y-1"
+                className="bg-[#212121] rounded-lg p-8 hover:bg-[#313131] transition-all duration-200 transform hover:-translate-y-1"
               >
-                <div className="bg-gray-800 rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6">
+                <div className="bg-[#313131]  rounded-lg p-4 w-16 h-16 flex items-center justify-center mb-6">
                   <Icon className="h-8 w-8 text-yellow-400" />
                 </div>
                 
