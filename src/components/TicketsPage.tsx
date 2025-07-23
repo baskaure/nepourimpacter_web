@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Calendar, MapPin, CreditCard, Mail } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
 import Hero from './Hero';
@@ -159,7 +159,7 @@ const PricingSection: React.FC = () => {
           )}
 
           {/* Pricing Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {pricingTiers.map((tier) => (
               <div
                 key={tier.id}
@@ -216,29 +216,31 @@ const PricingSection: React.FC = () => {
             ))}
           </div>
 
-          {/* Additional Info */}
-          <div className="mt-16 text-center">
-            <div className="bg-[#121212] rounded-lg p-8 max-w-3xl mx-auto">
-              <h3 className="text-2xl font-bold text-white mb-4">Informations importantes</h3>
-              <div className="grid md:grid-cols-2 gap-6 text-left">
-                <div>
-                  <h4 className="font-semibold text-white mb-2">Date et lieu</h4>
-                  <p className="text-gray-400 text-sm">28 juin 2025 à Lyon, France</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white mb-2">Politique d'annulation</h4>
-                  <p className="text-gray-400 text-sm">
-                    Remboursement possible jusqu'à 7 jours avant l'événement
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white mb-2">Paiement sécurisé</h4>
-                  <p className="text-gray-400 text-sm">Transactions protégées par Stripe</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white mb-2">Support</h4>
-                  <p className="text-gray-400 text-sm">contact@nepourimpacter.com</p>
-                </div>
+                    {/* Informations importantes */}
+          <div className="mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              <div className="flex flex-col items-center text-center space-y-3">
+                <Calendar className="w-8 h-8 text-yellow-400" />
+                <h4 className="font-semibold text-white">Date et lieu</h4>
+                <p className="text-gray-300 text-sm">29 juin 2025 à Lyon, France</p>
+              </div>
+              
+              <div className="flex flex-col items-center text-center space-y-3">
+                <MapPin className="w-8 h-8 text-yellow-400" />
+                <h4 className="font-semibold text-white">Lieu</h4>
+                <p className="text-gray-300 text-sm">123 Avenue des Entrepreneurs, 69000 Lyon, France</p>
+              </div>
+              
+              <div className="flex flex-col items-center text-center space-y-3">
+                <CreditCard className="w-8 h-8 text-yellow-400" />
+                <h4 className="font-semibold text-white">Paiement sécurisé</h4>
+                <p className="text-gray-300 text-sm">Transactions protégées par Stripe</p>
+              </div>
+              
+              <div className="flex flex-col items-center text-center space-y-3">
+                <Mail className="w-8 h-8 text-yellow-400" />
+                <h4 className="font-semibold text-white">Support</h4>
+                <p className="text-gray-300 text-sm">contact@nepourimpacter.com</p>
               </div>
             </div>
           </div>
