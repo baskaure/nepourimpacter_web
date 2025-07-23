@@ -1,41 +1,58 @@
 import React from 'react';
 import { Camera, Users, Mic, Trophy } from 'lucide-react';
+import image1 from './media/image00001.jpeg';
+import image2 from './media/image00002.jpeg';
+import image3 from './media/image00003.jpeg';
+import image4 from './media/image00004.jpeg';
+import image5 from './media/image00005.jpeg';
+import image6 from './media/image00006.jpeg';
+import image7 from './media/image00007.jpeg';
+import image8 from './media/image00008.jpeg';
+import image9 from './media/image00009.jpeg';
+import image10 from './media/image00010.jpeg';
+import image11 from './media/image00011.jpeg';
+import image12 from './media/image00012.jpeg';
+import image13 from './media/image00013.jpeg';
+import image14 from './media/image00014.jpeg';
+import image15 from './media/image00015.jpeg';
+import image16 from './media/image00016.jpeg';
+import image17 from './media/image00017.jpeg';
 
 const Gallery: React.FC = () => {
   const galleryImages = [
     {
       id: 1,
-      src: "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      src: image9,
       alt: "Conférence entrepreneuriat",
       category: "Conférences"
     },
     {
       id: 2,
-      src: "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      src: image4,
       alt: "Networking entrepreneurs",
       category: "Networking"
     },
     {
       id: 3,
-      src: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      src: image5,
       alt: "Présentation business",
       category: "Présentations"
     },
     {
       id: 4,
-      src: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      src: image6,
       alt: "Workshop innovation",
       category: "Workshops"
     },
     {
       id: 5,
-      src: "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      src: image15,
       alt: "Table ronde experts",
       category: "Tables rondes"
     },
     {
       id: 6,
-      src: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      src: image17,
       alt: "Moment convivial",
       category: "Moments conviviaux"
     }
